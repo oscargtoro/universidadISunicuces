@@ -1,0 +1,4 @@
+services:
+  threaded-app:
+    build: .
+    container_name: threaded-app
