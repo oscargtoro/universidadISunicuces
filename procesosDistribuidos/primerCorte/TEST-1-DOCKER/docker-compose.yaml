@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  nginx:
+    build: ./nginx
+    ports:
+      - "8080:80"
+    depends_on:
+      - main
+      - exp
+  main:
+    build: ./backend
+    container_name: main
+    environment:
+      - FLASK_APP=main_server.py
+    volumes:
+      - ./backend:/app
+  exp:
+    build: ./backend
+    container_name: exp
+    environment:
+      - FLASK_APP=exp_server.py
+    volumes:
+      - ./backend:/app
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:latest
+    container_name: cadvisor
+    ports:
+      - "8081:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro

@@ -1,0 +1,33 @@
+# Implementación del Patrón Ambassador con NGINX y Docker
+
+Este proyecto demuestra la implementación del **Patrón Ambassador** con **NGINX** en un entorno **Docker**. Se utiliza un servicio de NGINX como embajador para distribuir las solicitudes entrantes entre dos servidores backend, enviando **el 90% del tráfico al servidor principal y el 10% al servidor experimental**.
+
+---
+
+## 🛠️ Tecnologías utilizadas
+- Docker
+- Docker Compose
+- NGINX
+- Python (Flask)
+
+
+---
+
+## 🛠️ Configuración y Ejecución
+
+1. **Clonar el repositorio**
+   ```bash
+   git clone https://github.com/tu-repositorio
+   cd ambassador-pattern
+   ```
+
+2. **Construir y ejecutar los contenedores**
+   ```bash
+   docker-compose up --build
+   ```
+
+4. **Detener los contenedores**
+   ```bash
+   docker-compose down
+   ```
+---

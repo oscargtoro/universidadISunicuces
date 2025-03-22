@@ -1,0 +1,27 @@
+services:
+  app1:
+    build: ./app
+    container_name: app1
+    environment:
+      - PORT=3000
+  app2:
+    build: ./app
+    container_name: app2
+    environment:
+    - PORT=3000
+  app3:
+    build: ./app
+    container_name: app3
+    environment:
+      - PORT=3000
+  nginx:
+    image: nginx:latest
+    container_name: load-balancer
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx/default,conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - app1
+      - app2
+      - app3
