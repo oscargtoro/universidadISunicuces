@@ -18,14 +18,14 @@ class Restaurant:
         # - Process orders
         # - Update order status
         while True:
-            order = random.choice(self.queue.get())
+            order = self.queue.get()
             if order is None:
                 print(f"Worker {chef_id} shutting down...")
                 break
             
-            print(f"chef {chef_id} started preparing Order #{order[0]}")
+            print(f"chef {chef_id} started preparing Order #{order[0]}: {order[1]}")
             time.sleep(2)  # Simulate work
-            print(f"Order #{order[1]} completed by Chef {chef_id}")
+            print(f"Order #{order[0]} completed by Chef {chef_id}")
             self.queue.task_done()
 
     def create_order(self, order_id, dish_name):
@@ -47,12 +47,13 @@ class Restaurant:
 
 def main():
     # TODO: Create and run the restaurant system
+    menu = ["Pizza", "Pasta", "Salad", "Soup"]
     restaurante = Restaurant()
     restaurante.start_restaurant()
 
-    # Add some example tasks
+    # Add some example tasks"
     for i in range(10):
-        restaurante.create_order(i, f"dish {i}")
+        restaurante.create_order(i, random.choice(menu))
 
     # Wait for all tasks to complete
     restaurante.queue.join()
