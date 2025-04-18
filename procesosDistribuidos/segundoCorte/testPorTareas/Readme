@@ -1,0 +1,3 @@
+docker-compose run task_viewer
+
+docker-compose restart celery_beat
