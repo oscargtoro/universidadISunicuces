@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>hilos</title>
+    <style>
+        body { font-family: Arial; margin: 40px; }
+        .producto { border: 1px solid #ddd; padding: 10px; margin: 10px 0; }
+        .actions { margin: 20px 0; }
+        .btn { padding: 10px; text-decoration: none; color: white; border-radius: 5px; }
+        .btn-create { background-color: #4CAF50; }
+        .btn-delete { background-color: #f44336; }
+    </style>
+</head>
+<body>
+    <h1>hilos</h1>
+
+    {% for producto, item in restaurante.items %}
+        <div class="restaurant">
+            <p>{{ item }}</p>
+        </div>
+    {% endfor %}
+</body>
+</html>

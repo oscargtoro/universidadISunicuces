@@ -1,0 +1,77 @@
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+      - redis
+    environment:
+      - DEBUG=1
+      - DJANGO_SECRET_KEY=your-secret-key-here
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/backend_db
+
+  db:
+    image: postgres:13
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=backend_db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+
+  celery_worker:
+    build: .
+    command: celery -A app.tasks worker --loglevel=info
+    volumes:
+      - .:/app
+    depends_on:
+      - redis
+
+  celery_beat:
+    build: .
+    command: celery -A app.tasks beat --loglevel=info
+    volumes:
+      - .:/app
+    depends_on:
+      - redis
+
+  celery_flower:
+    build: .
+    command: celery -A app.tasks flower --loglevel=info
+    ports:
+      - "5555:5555"
+    volumes:
+      - .:/app
+    depends_on:
+      - redis
+
+  # task_adder:
+  #   build: .
+  #   volumes:
+  #     - .:/app
+  #   command: python add_task.py
+  #   depends_on:
+  #     - redis
+  #     - celery_worker
+  #     - celery_beat
+  #   stdin_open: true
+  #   tty: true
+
+  # task_viewer:
+  #   build: .
+  #   volumes:
+  #     - .:/app
+  #   command: python view_tasks.py
+  #   depends_on:
+  #     - redis
+
+volumes:
+  postgres_data:
