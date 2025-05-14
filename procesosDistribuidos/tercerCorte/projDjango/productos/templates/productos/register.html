@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>celery</title>
+    <style>
+        body { font-family: Arial; margin: 40px; }
+        .producto { border: 1px solid #ddd; padding: 10px; margin: 10px 0; }
+        .actions { margin: 20px 0; }
+        .btn { padding: 10px; text-decoration: none; color: white; border-radius: 5px; }
+        .btn-create { background-color: #4CAF50; }
+        .btn-delete { background-color: #f44336; }
+    </style>
+</head>
+<body>
+    <h1>register</h1>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    {% for producto in productos %}
+        <div class="producto">
+            <h3>{{ producto.nombre }}</h3>
+            <p>{{ producto.descripcion }}</p>
+            <p>Price: ${{ producto.precio }}</p>
+            <button type="submit" class="btn btn-create">Añadir</button>
+        </div>
+    {% empty %}
+        <p>No productos available.</p>
+    {% endfor %}
+    <button type="submit" class="btn btn-create">Completar</button>
+</body>
+</html>
